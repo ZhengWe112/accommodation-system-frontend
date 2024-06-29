@@ -1,32 +1,70 @@
 export default {
   sidebarMap: {
-    // 1是系统管理员 TODO: 这是老师给的菜单样例 需要更改为系统管理员的菜单
+    // 1是系统管理员
     1: {
       main: [
         {
-          groupTitle: '分组1'
-        },
-        {
-          path: '/main/first',
-          icon: 'suncaper-menu-unfold',
-          title: '一级菜单1'
-        },
-        {
-          path: '/main/second',
-          icon: 'suncaper-menu-unfold',
-          title: '一级菜单2',
-          group: 'second',
+          path: '/main/houseInfo/mgmt',
+          icon: 'el-icon-setting',
+          title: '房源信息',
+          group: '1-1',
           children: [
             {
-              path: '/main/second/second',
+              path: '/main/houseInfo/mgmt',
               icon: 'suncaper-menu-unfold',
-              title: '二级菜单'
+              title: '房源信息管理'
+            },
+            {
+              path: '/main/houseInfo/sk',
+              icon: 'suncaper-menu-unfold',
+              title: '房源信息查询'
+            }
+          ]
+        },
+        {
+          path: '/main/userInfo/mgmt',
+          icon: 'el-icon-setting',
+          title: '用户信息管理',
+          group: '1-2',
+          children: [
+            {
+              path: '/main/userInfo/mgmt',
+              icon: 'suncaper-menu-unfold',
+              title: '用户信息管理'
+            },
+            {
+              path: '/main/userInfo/sk',
+              icon: 'suncaper-menu-unfold',
+              title: '用户信息查询'
+            }
+          ]
+        },
+        {
+          path: '/main/sanitary/log',
+          icon: 'el-icon-setting',
+          title: '业务查看',
+          group: '1-3',
+          children: [
+            {
+              path: '/main/sanitary/log',
+              icon: 'suncaper-menu-unfold',
+              title: '卫生检查'
+            },
+            {
+              path: '/main/maintenance/log',
+              icon: 'suncaper-menu-unfold',
+              title: '维修日志'
+            },
+            {
+              path: '/main/accommodation/log',
+              icon: 'suncaper-menu-unfold',
+              title: '住退宿日志'
             }
           ]
         }
       ]
     },
-    // 1是维修管理员
+    // 2是维修管理员
     2: {
 
     },

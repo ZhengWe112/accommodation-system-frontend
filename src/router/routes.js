@@ -19,19 +19,67 @@ const mainPage = [
       import(/* webpackChunkName: "Main" */ '../pages/main/Main'),
     children: [
       {
-        path: 'first',
-        name: 'first',
+        path: 'welcome',
+        name: 'welcome',
         component: () =>
             import(
-              /* webpackChunkName: "Second" */ '../pages/main/routes/first/First'
+              /* webpackChunkName: "Second" */ '../pages/main/routes/welcome/Welcome'
             )
       },
       {
-        path: 'second/second',
-        name: 'second',
+        path: 'houseInfo/mgmt',
+        name: 'houseInfoMgmt',
         component: () =>
             import(
-              /* webpackChunkName: "First" */ '../pages/main/routes/second/Second'
+              /* webpackChunkName: "Second" */ '../pages/main/routes/houseInfo/HouseInfoMgmt'
+            )
+      },
+      {
+        path: 'houseInfo/sk',
+        name: 'houseInfoSk',
+        component: () =>
+            import(
+              /* webpackChunkName: "Second" */ '../pages/main/routes/houseInfo/houseInfoSk'
+            )
+      },
+      {
+        path: 'userInfo/sk',
+        name: 'userInfoSk',
+        component: () =>
+            import(
+              /* webpackChunkName: "Second" */ '../pages/main/routes/user/UserInfoSk.vue'
+            )
+      },
+      {
+        path: 'userInfo/mgmt',
+        name: 'userInfoSk',
+        component: () =>
+            import(
+              /* webpackChunkName: "Second" */ '../pages/main/routes/user/UserInfoMgmt.vue'
+            )
+      },
+      {
+        path: 'sanitary/log',
+        name: 'sanitaryLog',
+        component: () =>
+            import(
+              /* webpackChunkName: "Second" */ '../pages/main/routes/sanitary/SanitaryChkSk.vue'
+            )
+      },
+      {
+        path: 'maintenance/log',
+        name: 'maintenanceLog',
+        component: () =>
+            import(
+              /* webpackChunkName: "Second" */ '../pages/main/routes/maintenance/MaintenanceLog.vue'
+            )
+      },
+      {
+        path: 'accommodation/log',
+        name: 'accommodationLog',
+        component: () =>
+            import(
+              /* webpackChunkName: "Second" */ '../pages/main/routes/accommodation/AccommodationLog.vue'
             )
       }
     ]

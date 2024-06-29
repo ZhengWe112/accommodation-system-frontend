@@ -3,23 +3,22 @@
     <el-card class="crumbs-card">
       <div class="crumbs">
         <el-breadcrumb separator="/">
-          <el-breadcrumb-item :to="{ path: '/main/' }">首页</el-breadcrumb-item>
-          <el-breadcrumb-item :to="{ path: '/main/second/second' }">二级菜单</el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: '/main/welcome' }">首页</el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: '/main/userInfo/mgmt' }">用户信息管理</el-breadcrumb-item>
         </el-breadcrumb>
       </div>
     </el-card>
     <el-card class="container">
-      {{title}}
+      用户信息管理页面 在这里增删改用户信息
     </el-card>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Second',
+  name: 'userInfoMgmt',
   data () {
     return {
-      title: '二级菜单'
     }
   },
   methods: {
