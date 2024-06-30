@@ -23,7 +23,7 @@ const mainPage = [
         name: 'welcome',
         component: () =>
             import(
-              /* webpackChunkName: "Second" */ '../pages/main/routes/welcome/Welcome'
+              /* webpackChunkName: "Welcome" */ '../pages/main/routes/welcome/Welcome'
             )
       },
       {
@@ -31,7 +31,7 @@ const mainPage = [
         name: 'houseInfoMgmt',
         component: () =>
             import(
-              /* webpackChunkName: "Second" */ '../pages/main/routes/houseInfo/HouseInfoMgmt'
+              /* webpackChunkName: "HouseInfoMgmt" */ '../pages/main/routes/houseInfo/HouseInfoMgmt'
             )
       },
       {
@@ -39,7 +39,7 @@ const mainPage = [
         name: 'houseInfoSk',
         component: () =>
             import(
-              /* webpackChunkName: "Second" */ '../pages/main/routes/houseInfo/houseInfoSk'
+              /* webpackChunkName: "houseInfoSk" */ '../pages/main/routes/houseInfo/houseInfoSk'
             )
       },
       {
@@ -47,7 +47,7 @@ const mainPage = [
         name: 'userInfoSk',
         component: () =>
             import(
-              /* webpackChunkName: "Second" */ '../pages/main/routes/user/UserInfoSk.vue'
+              '../pages/main/routes/user/UserInfoSk'
             )
       },
       {
@@ -55,7 +55,7 @@ const mainPage = [
         name: 'userInfoSk',
         component: () =>
             import(
-              /* webpackChunkName: "Second" */ '../pages/main/routes/user/UserInfoMgmt.vue'
+              '../pages/main/routes/user/UserInfoMgmt'
             )
       },
       {
@@ -63,7 +63,55 @@ const mainPage = [
         name: 'sanitaryLog',
         component: () =>
             import(
-              /* webpackChunkName: "Second" */ '../pages/main/routes/sanitary/SanitaryChkSk.vue'
+              '../pages/main/routes/sanitary/SanitaryLog.vue'
+            )
+      },
+      {
+        path: 'sanitary/mgmt',
+        name: 'sanitaryMgmt',
+        component: () =>
+            import(
+              '../pages/main/routes/sanitary/SanitaryMgmt'
+            )
+      },
+      {
+        path: 'sanitary/objection/show',
+        name: 'sanitaryObjectionShow',
+        component: () =>
+            import(
+              '../pages/main/routes/sanitary/SanitaryObjectionShow.vue'
+            )
+      },
+      {
+        path: 'sanitary/objection/review',
+        name: 'sanitaryObjectionReview',
+        component: () =>
+            import(
+              '../pages/main/routes/sanitary/SanitaryObjectionReview'
+            )
+      },
+      {
+        path: 'sanitary/objection/notification',
+        name: 'sanitaryObjectionNotification',
+        component: () =>
+            import(
+              '../pages/main/routes/sanitary/SanitaryObjectionNotification'
+            )
+      },
+      {
+        path: 'sanitary/objection/apply',
+        name: 'sanitaryObjectionApply',
+        component: () =>
+            import(
+              '../pages/main/routes/sanitary/SanitaryObjectionApply'
+            )
+      },
+      {
+        path: 'sanitary/pub',
+        name: 'sanitaryPub',
+        component: () =>
+            import(
+              '../pages/main/routes/sanitary/SanitaryPub'
             )
       },
       {
@@ -71,7 +119,31 @@ const mainPage = [
         name: 'maintenanceLog',
         component: () =>
             import(
-              /* webpackChunkName: "Second" */ '../pages/main/routes/maintenance/MaintenanceLog.vue'
+              '../pages/main/routes/maintenance/MaintenanceLog'
+            )
+      },
+      {
+        path: 'maintenance/review',
+        name: 'maintenanceReview',
+        component: () =>
+            import(
+              '../pages/main/routes/maintenance/MaintenanceReview'
+            )
+      },
+      {
+        path: 'maintenance/apply',
+        name: 'maintenanceApply',
+        component: () =>
+            import(
+              '../pages/main/routes/maintenance/MaintenanceApply'
+            )
+      },
+      {
+        path: 'accommodation/notification',
+        name: 'accommodationNotification',
+        component: () =>
+            import(
+              '../pages/main/routes/accommodation/AccommodationNotification'
             )
       },
       {
@@ -79,7 +151,63 @@ const mainPage = [
         name: 'accommodationLog',
         component: () =>
             import(
-              /* webpackChunkName: "Second" */ '../pages/main/routes/accommodation/AccommodationLog.vue'
+              '../pages/main/routes/accommodation/AccommodationLog'
+            )
+      },
+      {
+        path: 'accommodation/review',
+        name: 'accommodationReview',
+        component: () =>
+            import(
+              '../pages/main/routes/accommodation/AccommodationReview'
+            )
+      },
+      {
+        path: 'accommodation/batch',
+        name: 'accommodationBatch',
+        component: () =>
+            import(
+              '../pages/main/routes/accommodation/AccommodationBatch'
+            )
+      },
+      {
+        path: 'accommodation/apply',
+        name: 'accommodationApply',
+        component: () =>
+            import(
+              '../pages/main/routes/accommodation/AccommodationApply'
+            )
+      },
+      {
+        path: 'violation/mgmt',
+        name: 'violationMgmt',
+        component: () =>
+            import(
+              '../pages/main/routes/violation/ViolationMgmt'
+            )
+      },
+      {
+        path: 'violation/sk',
+        name: 'violationSk',
+        component: () =>
+            import(
+              '../pages/main/routes/violation/ViolationSk'
+            )
+      },
+      {
+        path: 'violation/review',
+        name: 'violationReview',
+        component: () =>
+            import(
+              '../pages/main/routes/violation/ViolationReview'
+            )
+      },
+      {
+        path: 'violation/warn',
+        name: 'violationWarn',
+        component: () =>
+            import(
+              '../pages/main/routes/violation/ViolationWarn'
             )
       }
     ]
