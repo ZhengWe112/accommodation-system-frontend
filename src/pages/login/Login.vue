@@ -194,7 +194,7 @@ h3{
               <el-input v-model="loginForm.number"/>
             </el-form-item>
             <el-form-item label="密码" prop="password">
-              <el-input type="password" v-model="loginForm.password" />
+              <el-input type="password" v-model="loginForm.password" show-password />
             </el-form-item>
             <el-form-item label="用户类型" prop="role">
               <el-select v-model="loginForm.role" placeholder="please select your role">

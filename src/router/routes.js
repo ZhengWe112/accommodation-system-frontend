@@ -75,6 +75,14 @@ const mainPage = [
             )
       },
       {
+        path: 'sanitary/mgmt/detail',
+        name: 'sanitaryMgmtDetail',
+        component: () =>
+            import(
+              '../pages/main/routes/sanitary/SanitaryMgmtDetail'
+            )
+      },
+      {
         path: 'sanitary/objection/show',
         name: 'sanitaryObjectionShow',
         component: () =>

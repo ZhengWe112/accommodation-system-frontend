@@ -9,19 +9,124 @@
       </div>
     </el-card>
     <el-card class="container">
-      卫生检查管理 创建，登记，修改，送审，都在这个页面
+      <el-button type="primary" plain @click="addChk">创建</el-button>
+      <el-table :data="sanitaryData" height="250" style="width: 100%">
+        <el-table-column prop="id" label="编号"/>
+        <el-table-column prop="inspectionTime" label="创建时间"/>
+        <el-table-column prop="overallSituation" label="整体情况">
+          <template #default="scope">
+            <div v-if="scope.row.overallSituation === 0">优</div>
+            <div v-if="scope.row.overallSituation === 1">良</div>
+            <div v-if="scope.row.overallSituation === 2">中</div>
+            <div v-if="scope.row.overallSituation === 3">差</div>
+          </template>
+        </el-table-column>
+        <el-table-column prop="averageScore" label="平均得分" />
+        <el-table-column prop="state" label="状态">
+          <template #default="scope">
+            <div v-if="scope.row.state === 0">未送审</div>
+            <div v-if="scope.row.state === 1">已送审</div>
+            <div v-if="scope.row.state === 2">成绩已公布</div>
+          </template>
+        </el-table-column>
+        <el-table-column label="操作" width="300px">
+          <template #default="scope">
+            <el-button size="small" type="primary" @click="getDetail(scope.row)">
+              查看详情
+            </el-button>
+            <el-button v-if="scope.row.state === 0" size="small" type="success" @click="submit(scope.row)">
+              送审
+            </el-button>
+            <el-button v-if="scope.row.state > 0" size="small" type="success" disabled>
+              送审
+            </el-button>
+            <el-button v-if="scope.row.state === 0" size="small" type="danger" @click="deleteChk(scope.row)">
+              删除
+            </el-button>
+            <el-button v-if="scope.row.state > 0" size="small" type="success" disabled>
+              删除
+            </el-button>
+          </template>
+        </el-table-column>
+      </el-table>
     </el-card>
   </div>
 </template>
 
 <script>
+import {
+  getSanitaryChkByDormId,
+  addSanitaryChk,
+  deleteSanitaryChk,
+  submitSanitaryChk
+} from '@api/sanitary'
+import {mapGetters} from 'vuex'
+
 export default {
   name: 'sanitaryMgmt',
   data () {
     return {
+      sanitaryData: []
     }
   },
   methods: {
+    async init () {
+      await getSanitaryChkByDormId(this.userId).then(res => {
+        this.sanitaryData = res.data
+      }).catch(err => {
+        this.$message.error('出错了' + err)
+      })
+    },
+    addChk () {
+      addSanitaryChk(this.userId).then(res => {
+        if (res.status) {
+          this.$message.success('创建成功')
+          this.init()
+        } else {
+          this.$message.error('出错了 请联系系统管理员')
+        }
+      })
+    },
+    deleteChk (row) {
+      this.$confirm('确认删除此次卫生检查?', '提示', {
+        'confirmButtonText': '确定',
+        'cancelButtonText': '取消',
+        'type': 'warning'
+      }).then(() => {
+        deleteSanitaryChk(row.id).then(res => {
+          if (res.status) {
+            this.$message.success('删除成功')
+            this.init()
+          }
+        })
+      })
+    },
+    submit (row) {
+      console.log(row)
+      this.$confirm('确认送审？送审后，你将无权删除此次检查', '提示', {
+        'confirmButtonText': '确定',
+        'cancelButtonText': '取消',
+        'type': 'warning'
+      }).then(() => {
+        submitSanitaryChk({id: row.id}).then(res => {
+          if (res.status) {
+            this.$message.success('送审成功')
+            this.init()
+          }
+        })
+      })
+    },
+    getDetail (row) {
+      this.$router.push({path: '/main/sanitary/mgmt/detail', query: {id: row.id}})
+    }
+  },
+  computed: {
+    ...mapGetters({
+      userId: 'user/getUserId'
+    })
+  },
+  created () {
+    this.init()
   }
 }
 </script>
