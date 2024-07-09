@@ -4,14 +4,17 @@
       <div class="crumbs">
         <el-breadcrumb separator="/">
           <el-breadcrumb-item :to="{ path: '/main/welcome' }">首页</el-breadcrumb-item>
-          <el-breadcrumb-item :to="{ path: '/main/sanitary/mgmt/' }">寝室卫生管理</el-breadcrumb-item>
+          <el-breadcrumb-item v-if="userType === 3" :to="{ path: '/main/sanitary/mgmt/' }">寝室卫生管理</el-breadcrumb-item>
+          <el-breadcrumb-item v-if="userType === 4" :to="{ path: '/main/sanitary/pub/' }">检查结果发布</el-breadcrumb-item>
           <el-breadcrumb-item :to="{ path: '/main/sanitary/mgmt/detail' }">明细</el-breadcrumb-item>
         </el-breadcrumb>
       </div>
     </el-card>
     <el-card class="container">
-      <el-button type="primary" plain @click="add">添加记录</el-button>
-      <el-button type="success" plain @click="importFromExcel">从Excel导入</el-button>
+      <div v-if="userType === 3">
+        <el-button type="primary" plain @click="add">添加记录</el-button>
+        <el-button type="success" plain @click="importFromExcel">从Excel导入</el-button>
+      </div>
       <el-table :data="detail" @cell-dblclick="cellDblClick">
         <el-table-column label="编号" prop="id"></el-table-column>
         <el-table-column prop="roomId" label="房间号">
@@ -38,15 +41,15 @@
             <div v-else>{{ scope.row.description }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="200px">
+        <el-table-column v-if="userType === 3" label="操作" width="200px">
           <template #default="scope">
             <el-button v-if="scope.row.edit" size="small" type="success" @click="save(scope.row)">
               保存
             </el-button>
-            <el-button v-else size="small" type="primary" @click="cellDblClick(scope.row)">
+            <el-button v-if="!scope.row.edit" size="small" type="primary" @click="cellDblClick(scope.row)">
               编辑
             </el-button>
-            <el-button size="small" type="danger" @click="del(scope.row)">
+            <el-button  size="small" type="danger" @click="del(scope.row)">
               删除
             </el-button>
           </template>
@@ -63,12 +66,19 @@ import {
   delSanitaryDetail,
   addSanitaryDetail
 } from '@api/sanitary'
+import {mapGetters} from 'vuex'
+
 export default {
   name: 'sanitaryMgmtDetail',
   data () {
     return {
       detail: []
     }
+  },
+  computed: {
+    ...mapGetters({
+      userType: 'user/getUserType'
+    })
   },
   methods: {
     async init () {
@@ -79,7 +89,9 @@ export default {
       })
     },
     cellDblClick (row) {
-      this.$set(row, 'edit', true)
+      if (this.userType === 3) {
+        this.$set(row, 'edit', true)
+      }
     },
     save (row) {
       this.$set(row, 'edit', false)
@@ -109,9 +121,10 @@ export default {
           'cancelButtonText': '取消',
           'type': 'warning'
         }).then(() => {
-          delSanitaryDetail(row.id).then(res => {
+          delSanitaryDetail({'id': row.id, 'sanitaryInspectionId': row.sanitaryInspectionId}).then(res => {
             if (res.status) {
               this.$message.success('删除成功')
+              this.init()
             } else {
               this.$message.error('出错了 请联系系统管理员')
             }
