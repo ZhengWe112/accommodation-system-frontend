@@ -42,7 +42,7 @@ export default {
   },
   methods: {
     async init () {
-      if (this.userType === 4 || this.userType === 1) {
+      if (this.userType === 4 || this.userType === 1 || this.userType === 5) {
         await getDormSanitaryLst({}).then(res => {
           if (res.status) {
             this.logs = res.data
