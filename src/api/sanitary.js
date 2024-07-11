@@ -32,3 +32,27 @@ export const delSanitaryDetail = (obj) => http.GET('/api/sanitaryInspectionRecor
 
 // 添加一条卫生检查记录明细
 export const addSanitaryDetail = (obj) => http.POST('./api/sanitaryInspectionRecord/add', obj)
+
+// 查询卫生异议 查询条件 学生id 状态
+export const getSanitaryObjection = (obj) => http.GET('./api/sanitationObjection/list', obj)
+
+// 添加卫生异议
+export const addSanitaryObjection = (obj) => http.POST('./api/sanitationObjection/add', obj)
+
+// 提交卫生异议 （学生给宿管）
+export const applySanitaryObjection = (obj) => http.GET('./api/sanitationObjection/apply', obj)
+
+// 提交卫生异议 （宿管给分管领导）
+export const submitSanitaryObjection = (obj) => http.GET('./api/sanitationObjection/submit', obj)
+
+// 删除卫生异议
+export const deleteSanitaryObjection = (obj) => http.GET('./api/sanitationObjection/del', obj)
+
+// 同意（或拒绝）卫生异议
+export const agreeSanitaryObjection = (obj) => http.GET('./api/sanitationObjection/agree', obj)
+
+// 查询某位宿管收到的卫生异议反馈 来自分管领导的
+export const getSanitaryObjectionNotification = (id) => http.GET('/api/sanitationObjectionReviewResultNotification/' + id, {})
+
+// 处理某条卫生异议反馈 修改对应的成绩
+export const processSanitaryObjection = (obj) => http.GET('/api/sanitationObjectionReviewResultNotification/process', obj)

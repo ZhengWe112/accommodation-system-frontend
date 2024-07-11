@@ -25,7 +25,14 @@
         </el-table-column>
         <el-table-column prop="item" label="项目">
           <template #default="scope">
-            <el-input v-if="scope.row.edit" v-model="scope.row.item">{{ scope.row.item }}</el-input>
+            <el-select v-if="scope.row.edit" v-model="scope.row.item" placeholder="please select item">
+              <el-option
+                  v-for="item in dictionary"
+                  :key="item.item"
+                  :label="item.item"
+                  :value="item.item"
+              />
+            </el-select>
             <div v-else>{{ scope.row.item }}</div>
           </template>
         </el-table-column>
@@ -66,13 +73,15 @@ import {
   delSanitaryDetail,
   addSanitaryDetail
 } from '@api/sanitary'
+import {getDictionary} from '@api/dormitary'
 import {mapGetters} from 'vuex'
 
 export default {
   name: 'sanitaryMgmtDetail',
   data () {
     return {
-      detail: []
+      detail: [],
+      dictionary: []
     }
   },
   computed: {
@@ -85,6 +94,12 @@ export default {
       await getSanitaryDetail({id: this.$route.query.id}).then(res => {
         if (res.status) {
           this.detail = res.data
+        }
+      })
+      await getDictionary().then(res => {
+        if (res.status) {
+          this.dictionary = res.data
+          console.log(res.data)
         }
       })
     },
