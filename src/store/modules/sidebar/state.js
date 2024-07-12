@@ -219,7 +219,7 @@ export default {
           ]
         },
         {
-          path: '/main/violation/mgmt',
+          path: '/main/violation/review',
           icon: 'el-icon-setting',
           title: '违规管理',
           group: '4-3',

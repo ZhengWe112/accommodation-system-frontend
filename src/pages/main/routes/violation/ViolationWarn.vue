@@ -20,6 +20,12 @@
           </template>
         </el-table-column>
       </el-table>
+      <PaginationComponent
+          :total="total"
+          :currentPage="currentPage"
+          :pageSize="pageSize"
+          @pagination="handlePageChange"
+      />
     </el-card>
   </div>
 </template>
@@ -29,12 +35,17 @@ import {
   getWarningMsg
 } from '@api/violation'
 import {mapGetters} from 'vuex'
+import PaginationComponent from '@/components/PaginationComponent.vue'
 
 export default {
   name: 'violationWarn',
+  components: {PaginationComponent},
   data () {
     return {
-      record: []
+      record: [],
+      total: 400,
+      pageSize: 10,
+      currentPage: 1
     }
   },
   computed: {
@@ -44,11 +55,18 @@ export default {
   },
   methods: {
     async init () {
-      getWarningMsg({id: this.userId}).then(res => {
+      getWarningMsg({pageNo: this.currentPage, pageSize: this.pageSize, id: this.userId}).then(res => {
         if (res.status) {
-          this.record = res.data
+          this.record = res.data.data
+          this.total = res.data.total
         }
       })
+    },
+    handlePageChange (data) {
+      this.currentPage = data.currentPage
+      this.pageSize = data.pageSize
+      console.log(this.currentPage, this.pageSize)
+      this.init()
     }
   },
   created () {

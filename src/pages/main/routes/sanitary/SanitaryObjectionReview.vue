@@ -39,6 +39,12 @@
           </template>
         </el-table-column>
       </el-table>
+      <PaginationComponent
+          :total="total"
+          :currentPage="currentPage"
+          :pageSize="pageSize"
+          @pagination="handlePageChange"
+      />
     </el-card>
   </div>
 </template>
@@ -48,18 +54,24 @@ import {
   agreeSanitaryObjection,
   getSanitaryObjection
 } from '@api/sanitary'
+import PaginationComponent from '@/components/PaginationComponent.vue'
 export default {
   name: 'sanitaryObjectionReview',
+  components: {PaginationComponent},
   data () {
     return {
-      objectionData: []
+      objectionData: [],
+      total: 400,
+      pageSize: 10,
+      currentPage: 1
     }
   },
   methods: {
     async init () {
-      await getSanitaryObjection({state: 2}).then(res => {
+      await getSanitaryObjection({pageNo: this.currentPage, pageSize: this.pageSize, state: 2}).then(res => {
         if (res.status) {
-          this.objectionData = res.data
+          this.objectionData = res.data.data
+          this.total = res.data.total
         }
       })
     },
@@ -91,6 +103,12 @@ export default {
           })
         })
       }
+    },
+    handlePageChange (data) {
+      this.currentPage = data.currentPage
+      this.pageSize = data.pageSize
+      console.log(this.currentPage, this.pageSize)
+      this.init()
     }
   },
   created () {

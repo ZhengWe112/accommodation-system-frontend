@@ -37,6 +37,9 @@ export default {
   methods: {
     logout () {
       this.$router.push('/login')
+      this.$store.commit('user/SET_USER_ID', null)
+      this.$store.commit('user/SET_USER_NAME', null)
+      this.$store.commit('user/SET_USER_TYPE', null)
     }
   },
   components: {

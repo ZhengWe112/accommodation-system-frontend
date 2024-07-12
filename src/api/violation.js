@@ -4,7 +4,7 @@ import http from '@http/http'
 export const getViolationByDorm = (obj) => http.GET('/api/violationRecord/byDormAdmin', obj)
 
 // 查询分管领导可以看见的违规记录 即state >= 1
-export const getViolationByState = () => http.GET('/api/violationRecord/byState')
+export const getViolationByState = (obj) => http.GET('/api/violationRecord/byState', obj)
 
 // 添加违规记录
 export const addViolationRecord = (obj) => http.POST('/api/violationRecord/add', obj)

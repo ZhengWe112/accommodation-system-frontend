@@ -30,7 +30,7 @@
               :picker-options="pickerOptions">
           </el-date-picker>
         </el-form-item>
-        <el-form-item label="严重性" prop="reason">
+        <el-form-item label="严重性" prop="violationDegree">
           <el-select v-model="form.violationDegree" placeholder="严重性">
             <el-option
                 v-for="item in degree"
@@ -84,6 +84,12 @@
           </template>
         </el-table-column>
       </el-table>
+      <PaginationComponent
+          :total="total"
+          :currentPage="currentPage"
+          :pageSize="pageSize"
+          @pagination="handlePageChange"
+      />
     </el-card>
   </div>
 </template>
@@ -96,9 +102,11 @@ import {
   submitViolationRecord
 } from '@api/violation'
 import {mapGetters} from 'vuex'
+import PaginationComponent from '@/components/PaginationComponent.vue'
 
 export default {
   name: 'violationMgmt',
+  components: {PaginationComponent},
   data () {
     return {
       pickerOptions: {
@@ -137,7 +145,10 @@ export default {
         {value: 1, label: '严重警告'},
         {value: 2, label: '警告'}
       ],
-      showForm: false
+      showForm: false,
+      total: 400,
+      pageSize: 10,
+      currentPage: 1
     }
   },
   computed: {
@@ -192,16 +203,17 @@ export default {
         studentNumber: [{validator: validateStudentNumber, trigger: 'blur'}],
         violationTime: [{validator: validateViolationTime, trigger: 'blur'}],
         violationItem: [{validator: validateViolationItem, trigger: 'blur'}],
-        reason: [{validator: validateReason, trigger: 'blur'}],
-        violationDegree: [{validator: validateViolationDegree, trigger: 'blur'}]
+        violationDegree: [{validator: validateViolationDegree, trigger: 'blur'}],
+        reason: [{validator: validateReason, trigger: 'blur'}]
       }
     }
   },
   methods: {
     async init () {
-      await getViolationByDorm({id: this.userId}).then(res => {
+      await getViolationByDorm({pageNo: this.currentPage, pageSize: this.pageSize, id: this.userId}).then(res => {
         if (res.status) {
-          this.record = res.data
+          this.record = res.data.data
+          this.total = res.data.total
         }
       })
     },
@@ -262,6 +274,12 @@ export default {
       }).then(() => {
         this.showForm = false
       })
+    },
+    handlePageChange (data) {
+      this.currentPage = data.currentPage
+      this.pageSize = data.pageSize
+      console.log(this.currentPage, this.pageSize)
+      this.init()
     }
   },
   created () {

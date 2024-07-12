@@ -39,6 +39,12 @@
           </template>
         </el-table-column>
       </el-table>
+      <PaginationComponent
+          :total="total"
+          :currentPage="currentPage"
+          :pageSize="pageSize"
+          @pagination="handlePageChange"
+      />
     </el-card>
   </div>
 </template>
@@ -48,19 +54,25 @@ import {
   getViolationByState,
   sendWarningMsg
 } from '@api/violation'
+import PaginationComponent from '@/components/PaginationComponent.vue'
 
 export default {
   name: 'violationReview',
+  components: {PaginationComponent},
   data () {
     return {
-      record: []
+      record: [],
+      total: 400,
+      pageSize: 10,
+      currentPage: 1
     }
   },
   methods: {
     async init () {
-      await getViolationByState().then(res => {
+      await getViolationByState({pageNo: this.currentPage, pageSize: this.pageSize}).then(res => {
         if (res.status) {
-          this.record = res.data
+          this.record = res.data.data
+          this.total = res.data.total
         }
       })
     },
@@ -79,6 +91,12 @@ export default {
           }
         })
       })
+    },
+    handlePageChange (data) {
+      this.currentPage = data.currentPage
+      this.pageSize = data.pageSize
+      console.log(this.currentPage, this.pageSize)
+      this.init()
     }
   },
   created () {

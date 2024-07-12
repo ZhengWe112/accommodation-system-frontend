@@ -49,6 +49,12 @@
           </template>
         </el-table-column>
       </el-table>
+      <PaginationComponent
+          :total="total"
+          :currentPage="currentPage"
+          :pageSize="pageSize"
+          @pagination="handlePageChange"
+      />
     </el-card>
   </div>
 </template>
@@ -61,18 +67,24 @@ import {
   submitSanitaryChk
 } from '@api/sanitary'
 import {mapGetters} from 'vuex'
+import PaginationComponent from '@/components/PaginationComponent.vue'
 
 export default {
   name: 'sanitaryMgmt',
+  components: {PaginationComponent},
   data () {
     return {
-      sanitaryData: []
+      sanitaryData: [],
+      total: 400,
+      pageSize: 10,
+      currentPage: 1
     }
   },
   methods: {
     async init () {
-      await getSanitaryChkByDormId(this.userId).then(res => {
-        this.sanitaryData = res.data
+      await getSanitaryChkByDormId(this.userId, {pageNo: this.currentPage, pageSize: this.pageSize}).then(res => {
+        this.sanitaryData = res.data.data
+        this.total = res.data.total
       }).catch(err => {
         this.$message.error('出错了' + err)
       })
@@ -118,6 +130,12 @@ export default {
     },
     getDetail (row) {
       this.$router.push({path: '/main/sanitary/mgmt/detail', query: {id: row.id}})
+    },
+    handlePageChange (data) {
+      this.currentPage = data.currentPage
+      this.pageSize = data.pageSize
+      console.log(this.currentPage, this.pageSize)
+      this.init()
     }
   },
   computed: {

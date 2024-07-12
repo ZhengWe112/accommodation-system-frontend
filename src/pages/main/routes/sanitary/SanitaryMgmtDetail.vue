@@ -62,6 +62,12 @@
           </template>
         </el-table-column>
       </el-table>
+      <PaginationComponent
+          :total="total"
+          :currentPage="currentPage"
+          :pageSize="pageSize"
+          @pagination="handlePageChange"
+      />
     </el-card>
   </div>
 </template>
@@ -75,13 +81,18 @@ import {
 } from '@api/sanitary'
 import {getDictionary} from '@api/dormitary'
 import {mapGetters} from 'vuex'
+import PaginationComponent from '@/components/PaginationComponent.vue'
 
 export default {
   name: 'sanitaryMgmtDetail',
+  components: {PaginationComponent},
   data () {
     return {
       detail: [],
-      dictionary: []
+      dictionary: [],
+      total: 400,
+      pageSize: 10,
+      currentPage: 1
     }
   },
   computed: {
@@ -91,9 +102,14 @@ export default {
   },
   methods: {
     async init () {
-      await getSanitaryDetail({id: this.$route.query.id}).then(res => {
+      await getSanitaryDetail({
+        id: this.$route.query.id,
+        pageNo: this.currentPage,
+        pageSize: this.pageSize
+      }).then(res => {
         if (res.status) {
-          this.detail = res.data
+          this.detail = res.data.data
+          this.total = res.data.total
         }
       })
       await getDictionary().then(res => {
@@ -154,6 +170,12 @@ export default {
     },
     importFromExcel () {
 
+    },
+    handlePageChange (data) {
+      this.currentPage = data.currentPage
+      this.pageSize = data.pageSize
+      console.log(this.currentPage, this.pageSize)
+      this.init()
     }
   },
   created () {

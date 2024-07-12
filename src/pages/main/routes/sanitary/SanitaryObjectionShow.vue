@@ -9,7 +9,7 @@
       </div>
     </el-card>
     <el-card class="container">
-      <el-table :data="objectionData" height="250" style="width: 100%">
+      <el-table :data="objectionData" style="width: 100%">
         <el-table-column prop="createTime" label="创建时间"/>
         <el-table-column prop="sanitaryInspectionId" label="卫生检查编号"/>
         <el-table-column prop="objectionReason" label="发起的理由" width="400px"/>
@@ -33,6 +33,12 @@
           </template>
         </el-table-column>
       </el-table>
+      <PaginationComponent
+          :total="total"
+          :currentPage="currentPage"
+          :pageSize="pageSize"
+          @pagination="handlePageChange"
+      />
     </el-card>
   </div>
 </template>
@@ -42,18 +48,24 @@ import {
   submitSanitaryObjection,
   getSanitaryObjection
 } from '@api/sanitary'
+import PaginationComponent from '@/components/PaginationComponent.vue'
 export default {
   name: 'sanitaryObjectionShow',
+  components: {PaginationComponent},
   data () {
     return {
-      objectionData: []
+      objectionData: [],
+      total: 400,
+      pageSize: 10,
+      currentPage: 1
     }
   },
   methods: {
     async init () {
-      await getSanitaryObjection({state: 1}).then(res => {
+      await getSanitaryObjection({pageNo: this.currentPage, pageSize: this.pageSize, state: 1}).then(res => {
         if (res.status) {
-          this.objectionData = res.data
+          this.objectionData = res.data.data
+          this.total = res.data.total
         }
       })
     },
@@ -70,6 +82,12 @@ export default {
           }
         })
       })
+    },
+    handlePageChange (data) {
+      this.currentPage = data.currentPage
+      this.pageSize = data.pageSize
+      console.log(this.currentPage, this.pageSize)
+      this.init()
     }
   },
   created () {

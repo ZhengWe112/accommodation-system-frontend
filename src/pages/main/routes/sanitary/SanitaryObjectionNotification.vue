@@ -31,6 +31,12 @@
           </template>
         </el-table-column>
       </el-table>
+      <PaginationComponent
+          :total="total"
+          :currentPage="currentPage"
+          :pageSize="pageSize"
+          @pagination="handlePageChange"
+      />
     </el-card>
   </div>
 </template>
@@ -41,12 +47,17 @@ import {
   processSanitaryObjection
 } from '@api/sanitary'
 import {mapGetters} from 'vuex'
+import PaginationComponent from '@/components/PaginationComponent.vue'
 
 export default {
   name: 'sanitaryObjectionNotification',
+  components: {PaginationComponent},
   data () {
     return {
-      notification: []
+      notification: [],
+      total: 400,
+      pageSize: 10,
+      currentPage: 1
     }
   },
   computed: {
@@ -56,9 +67,10 @@ export default {
   },
   methods: {
     async init () {
-      await getSanitaryObjectionNotification(this.userId).then(res => {
+      await getSanitaryObjectionNotification(this.userId, {pageNo: this.currentPage, pageSize: this.pageSize}).then(res => {
         if (res.status) {
-          this.notification = res.data
+          this.notification = res.data.data
+          this.total = res.data.total
         }
       })
     },
@@ -68,6 +80,12 @@ export default {
           this.$message.success('处理成功')
         }
       })
+    },
+    handlePageChange (data) {
+      this.currentPage = data.currentPage
+      this.pageSize = data.pageSize
+      console.log(this.currentPage, this.pageSize)
+      this.init()
     }
   },
   created () {

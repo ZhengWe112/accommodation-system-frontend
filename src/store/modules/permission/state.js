@@ -3,22 +3,22 @@ export default {
   // TODO: 这是6个角色允许访问的路由 现在都是全部 以后要改
   permissionMap: {
     1: {
-      main: ['*']
+      main: ['welcome', 'houseInfoMgmt', 'houseInfoSk', 'userInfoSk', 'userInfoMgmt', 'sanitaryLog', 'maintenanceLog', 'accommodationLog']
     },
     2: {
-      main: ['*']
+      main: ['welcome', 'maintenanceLog', 'maintenanceReview']
     },
     3: {
-      main: ['*']
+      main: ['welcome', 'houseInfoSk', 'accommodationLog', 'accommodationNotification', 'sanitaryLog', 'sanitaryMgmt', 'sanitaryMgmtDetail', 'sanitaryObjectionShow', 'sanitaryObjectionNotification', 'violationMgmt', 'violationSk']
     },
     4: {
-      main: ['*']
+      main: ['welcome', 'accommodationReview', 'accommodationBatch', 'accommodationLog', 'sanitaryPub', 'sanitaryObjectionReview', 'sanitaryMgmtDetail', 'sanitaryLog', 'violationReview', 'violationSk']
     },
     5: {
-      main: ['*']
+      main: ['welcome', 'accommodationApply', 'accommodationLog', 'violationSk', 'sanitaryLog', 'maintenanceApply', 'maintenanceLog']
     },
     6: {
-      main: ['*']
+      main: ['welcome', 'accommodationApply', 'accommodationLog', 'violationSk', 'violationWarn', 'sanitaryObjectionApply', 'sanitaryLog', 'maintenanceApply', 'maintenanceLog']
     }
   }
 }

@@ -4,10 +4,10 @@ import http from '@http/http'
 export const getSanitaryChkLst = () => http.GET('./api/sanitaryInspection', {})
 
 // 查询某位宿管创建的卫生检查记录 path = '/api/sanitaryInspection/' + id
-export const getSanitaryChkByDormId = (id) => http.GET('/api/sanitaryInspection/' + id, {})
+export const getSanitaryChkByDormId = (id, obj) => http.GET('/api/sanitaryInspection/' + id, obj)
 
 // 查询所有已经送审的卫生检查
-export const getSanitaryChkSubmitted = () => http.GET('./api/sanitaryInspection/submitted')
+export const getSanitaryChkSubmitted = (obj) => http.GET('./api/sanitaryInspection/submitted', obj)
 
 // 某位宿管创建卫生检查 path = '/api/sanitaryInspection/' + id
 export const addSanitaryChk = (id) => http.PUT('/api/sanitaryInspection/' + id, {})
@@ -52,7 +52,7 @@ export const deleteSanitaryObjection = (obj) => http.GET('./api/sanitationObject
 export const agreeSanitaryObjection = (obj) => http.GET('./api/sanitationObjection/agree', obj)
 
 // 查询某位宿管收到的卫生异议反馈 来自分管领导的
-export const getSanitaryObjectionNotification = (id) => http.GET('/api/sanitationObjectionReviewResultNotification/' + id, {})
+export const getSanitaryObjectionNotification = (id, obj) => http.GET('/api/sanitationObjectionReviewResultNotification/' + id, obj)
 
 // 处理某条卫生异议反馈 修改对应的成绩
 export const processSanitaryObjection = (obj) => http.GET('/api/sanitationObjectionReviewResultNotification/process', obj)

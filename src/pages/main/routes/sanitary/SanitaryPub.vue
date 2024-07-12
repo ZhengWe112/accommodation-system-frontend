@@ -42,6 +42,12 @@
           </template>
         </el-table-column>
       </el-table>
+      <PaginationComponent
+          :total="total"
+          :currentPage="currentPage"
+          :pageSize="pageSize"
+          @pagination="handlePageChange"
+      />
     </el-card>
   </div>
 </template>
@@ -51,19 +57,25 @@ import {
   getSanitaryChkSubmitted,
   pubSanitaryChk
 } from '@api/sanitary'
+import PaginationComponent from '@/components/PaginationComponent.vue'
 
 export default {
   name: 'sanitaryPub',
+  components: {PaginationComponent},
   data () {
     return {
-      sanitaryData: []
+      sanitaryData: [],
+      total: 400,
+      pageSize: 10,
+      currentPage: 1
     }
   },
   methods: {
     async init () {
-      await getSanitaryChkSubmitted().then(res => {
+      await getSanitaryChkSubmitted({pageNo: this.currentPage, pageSize: this.pageSize}).then(res => {
         if (res.status) {
-          this.sanitaryData = res.data
+          this.sanitaryData = res.data.data
+          this.total = res.data.total
         }
       })
     },
@@ -83,6 +95,12 @@ export default {
     },
     getDetail (row) {
       this.$router.push({path: '/main/sanitary/mgmt/detail', query: {id: row.id}})
+    },
+    handlePageChange (data) {
+      this.currentPage = data.currentPage
+      this.pageSize = data.pageSize
+      console.log(this.currentPage, this.pageSize)
+      this.init()
     }
   },
   created () {

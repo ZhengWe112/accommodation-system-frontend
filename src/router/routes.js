@@ -52,7 +52,7 @@ const mainPage = [
       },
       {
         path: 'userInfo/mgmt',
-        name: 'userInfoSk',
+        name: 'userInfoMgmt',
         component: () =>
             import(
               '../pages/main/routes/user/UserInfoMgmt'
