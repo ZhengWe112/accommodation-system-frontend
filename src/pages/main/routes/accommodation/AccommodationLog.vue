@@ -10,18 +10,9 @@
     </el-card>
     <el-card class="container">
       <el-table :data="logs" style="width: 100%">
-        <el-table-column type="expand">
-          <template #default="scope">
-            <el-table :data="scope.row.sanitaryInspectionDetail" style="margin-left: 80px; width: 100%">
-              <el-table-column prop="item" label="项" width="100px"/>
-              <el-table-column prop="score" label="分数" width="100px"/>
-              <el-table-column prop="description" label="描述"/>
-            </el-table>
-          </template>
-        </el-table-column>
         <el-table-column prop="responsibleLeaderName" label="审核人"/>
         <el-table-column prop="studentName" label="学生"/>
-        <el-table-column prop="requestTime" label="申请时间"/>
+        <el-table-column prop="requestTime" label="申请时间" width="200px"/>
         <el-table-column prop="requestReason" label="申请理由" width="300px"/>
         <el-table-column prop="reviewTime" label="审核时间"/>
         <el-table-column prop="reviewState" label="状态">
