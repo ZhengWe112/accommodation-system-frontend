@@ -230,9 +230,9 @@ export default {
   data () {
     return {
       loginForm: {
-        number: '123',
+        number: '1',
         password: '123',
-        role: ''
+        role: 1
       },
       roles: [
         {value: 1, label: '系统管理员'},
