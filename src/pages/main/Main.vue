@@ -17,11 +17,10 @@ export default {
   data () {
     return {
       logo: {
-        // TODO: 这里以后要改
         src: logo,
-        alt: '上程数据',
-        firstDes: '上程数据',
-        secondDes: '广泛UE模板'
+        alt: '住宿系统',
+        firstDes: '住宿系统',
+        secondDes: '校园智慧宿舍软件'
       }
     }
   },
