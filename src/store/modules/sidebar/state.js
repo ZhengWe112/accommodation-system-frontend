@@ -173,6 +173,19 @@ export default {
     4: {
       main: [
         {
+          path: '/main/houseInfo/sk',
+          icon: 'el-icon-setting',
+          title: '房源信息',
+          group: '3-1',
+          children: [
+            {
+              path: '/main/houseInfo/sk',
+              icon: 'suncaper-menu-unfold',
+              title: '房源信息查询'
+            }
+          ]
+        },
+        {
           path: '/main/accommodation/review',
           icon: 'el-icon-setting',
           title: '住退宿审批',

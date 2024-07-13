@@ -12,7 +12,7 @@ export default {
       main: ['welcome', 'houseInfoSk', 'accommodationLog', 'accommodationNotification', 'sanitaryLog', 'sanitaryMgmt', 'sanitaryMgmtDetail', 'sanitaryObjectionShow', 'sanitaryObjectionNotification', 'violationMgmt', 'violationSk']
     },
     4: {
-      main: ['welcome', 'accommodationReview', 'accommodationBatch', 'accommodationLog', 'sanitaryPub', 'sanitaryObjectionReview', 'sanitaryMgmtDetail', 'sanitaryLog', 'violationReview', 'violationSk']
+      main: ['welcome', 'houseInfoSk', 'accommodationReview', 'accommodationBatch', 'accommodationLog', 'sanitaryPub', 'sanitaryObjectionReview', 'sanitaryMgmtDetail', 'sanitaryLog', 'violationReview', 'violationSk']
     },
     5: {
       main: ['welcome', 'accommodationApply', 'accommodationLog', 'violationSk', 'sanitaryLog', 'maintenanceApply', 'maintenanceLog']
