@@ -12,6 +12,7 @@
       <el-tabs v-model="activeName" @tab-click="tabChg">
         <el-tab-pane label="园区信息" name="first">
           <el-table :data="park" style="width: 100%">
+            <el-table-column prop="id" label="园区编号"/>
             <el-table-column prop="parkName" label="园区名"/>
             <el-table-column prop="parkAddress" label="园区地址"/>
             <el-table-column prop="parkType" label="园区类型">
@@ -32,6 +33,7 @@
         </el-tab-pane>
         <el-tab-pane label="楼栋信息" name="second">
           <el-table :data="building" style="width: 100%">
+            <el-table-column prop="id" label="楼栋编号"/>
             <el-table-column prop="dormitoryAdministratorName" label="负责人"/>
             <el-table-column prop="parkName" label="所属园区  "/>
             <el-table-column prop="buildingName" label="楼栋名"/>
@@ -48,6 +50,7 @@
         </el-tab-pane>
         <el-tab-pane label="房间信息" name="third">
           <el-table :data="room" style="width: 100%">
+            <el-table-column prop="id" label="房间编号"/>
             <el-table-column prop="buildingName" label="所属楼栋"/>
             <el-table-column prop="roomNumber" label="房间号"/>
             <el-table-column prop="roomType" label="房间类型">
@@ -66,6 +69,12 @@
             <el-table-column prop="roomFloor" label="所在楼层"/>
             <el-table-column prop="roomLocation" label="方位"/>
           </el-table>
+          <PaginationComponent
+              :total="total"
+              :currentPage="currentPage"
+              :pageSize="pageSize"
+              @pagination="handlePageChange"
+          />
         </el-tab-pane>
         <el-tab-pane label="床位信息" name="fourth">
           <el-table :data="bed" style="width: 100%">
@@ -91,6 +100,12 @@
             </el-table-column>
             <el-table-column prop="bedNumber" label="床位号"/>
           </el-table>
+          <PaginationComponent
+              :total="total"
+              :currentPage="currentPage"
+              :pageSize="pageSize"
+              @pagination="handlePageChange"
+          />
         </el-tab-pane>
       </el-tabs>
     </el-card>

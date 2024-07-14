@@ -7,9 +7,7 @@
         </el-breadcrumb>
       </div>
     </el-card>
-    <el-card class="container">
-      这是欢迎页面
-    </el-card>
+    <el-image src="https://www.lanhomex.com/uploads/210618/2-21061Q41531100.jpg" fit="fill"/>
   </div>
 </template>
 

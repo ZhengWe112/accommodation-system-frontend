@@ -214,9 +214,8 @@ h3{
         <div class="overlaytitle-Signin">
           <h2 class="overlaytitleH2">Hello,Friend!</h2>
           <p class="overlaytitleP">
-            Enter your personal details and start journey with us
+            欢迎使用高校住宿管理系统
           </p>
-          <div class="buttongohs" @click="handleSubmit">Sign up</div>
         </div>
       </div>
     </div>

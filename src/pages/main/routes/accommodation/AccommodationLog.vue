@@ -14,14 +14,23 @@
         <el-table-column prop="studentName" label="学生"/>
         <el-table-column prop="requestTime" label="申请时间" width="200px"/>
         <el-table-column prop="requestReason" label="申请理由" width="300px"/>
-        <el-table-column prop="reviewTime" label="审核时间"/>
-        <el-table-column prop="reviewState" label="状态">
+        <el-table-column prop="requestType" label="类型">
           <template #default="scope">
-            <div v-if="scope.row.reviewState === 0">通过</div>
-            <div v-if="scope.row.reviewState === 1">驳回</div>
+            <div v-if="scope.row.requestType === 0">普通入住申请</div>
+            <div v-if="scope.row.requestType === 1">普通调宿申请</div>
+            <div v-if="scope.row.requestType === 2">互换申请</div>
+            <div v-if="scope.row.requestType === 3">个人退宿申请</div>
+            <div v-if="scope.row.requestType === 4">校外住宿申请</div>
           </template>
         </el-table-column>
-        <el-table-column prop="reviewReason" label="驳回原因"/>
+        <el-table-column prop="reviewTime" label="审核时间" width="200px"/>
+        <el-table-column prop="reviewState" label="状态">
+          <template #default="scope">
+            <div v-if="scope.row.reviewState === false">通过</div>
+            <div v-if="scope.row.reviewState === true">驳回</div>
+          </template>
+        </el-table-column>
+        <el-table-column prop="reviewReason" label="描述"/>
       </el-table>
       <PaginationComponent
           :total="total"

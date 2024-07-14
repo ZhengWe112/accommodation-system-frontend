@@ -31,18 +31,43 @@
         </el-table-column>
         <el-table-column label="操作" width="300px">
           <template #default="scope">
-            <el-button v-if="scope.row.state === 0" size="small" type="primary" @click="agree(scope.row, 'a')">
+            <el-button v-if="scope.row.state === 0" size="small" type="primary" @click="dialogAgree = true">
               同意
             </el-button>
             <el-button v-if="scope.row.state > 0" size="small" type="primary" disabled>
               同意
             </el-button>
-            <el-button v-if="scope.row.state === 0" size="small" type="danger" @click="agree(scope.row, 'd')">
+            <el-button v-if="scope.row.state === 0" size="small" type="danger" @click="dialogDisagree = true">
               拒绝
             </el-button>
-            <el-button v-if="scope.row.state > 0" size="small" type="success" disabled>
+            <el-button v-if="scope.row.state > 0" size="small" type="danger" disabled>
               拒绝
             </el-button>
+            <el-dialog title="处理住宿申请" :visible.sync="dialogAgree" width="400px">
+              <el-form :model="form">
+                <el-form-item label="前楼栋" label-width=120px>
+                  <el-input v-model="form.preBuildingId" placeholder="换宿/退宿需要填写"></el-input>
+                </el-form-item>
+                <el-form-item label="现楼栋" label-width=120px>
+                  <el-input v-model="form.nowBuildingId" placeholder="换宿/入宿需要填写"></el-input>
+                </el-form-item>
+              </el-form>
+              <div slot="footer" class="dialog-footer">
+                <el-button @click="dialogAgree = false">取 消</el-button>
+                <el-button type="primary" @click="agree(scope.row, 'a')">确 定</el-button>
+              </div>
+            </el-dialog>
+            <el-dialog title="处理住宿申请" :visible.sync="dialogDisagree" width="400px">
+              <el-form :model="form">
+                <el-form-item label="理由" label-width=120px>
+                  <el-input v-model="form.reason" autocomplete="off"></el-input>
+                </el-form-item>
+              </el-form>
+              <div slot="footer" class="dialog-footer">
+                <el-button @click="dialogDisagree = false">取 消</el-button>
+                <el-button type="primary" @click="agree(scope.row, 'd')">确 定</el-button>
+              </div>
+            </el-dialog>
           </template>
         </el-table-column>
       </el-table>
@@ -72,7 +97,14 @@ export default {
       apply: [],
       total: 400,
       pageSize: 10,
-      currentPage: 1
+      currentPage: 1,
+      dialogDisagree: false,
+      dialogAgree: false,
+      form: {
+        preBuildingId: '',
+        nowBuildingId: '',
+        reason: ''
+      }
     }
   },
   methods: {
@@ -86,42 +118,35 @@ export default {
     },
     agree (row, st) {
       if (st === 'a') {
-        this.$confirm('确定同意此次申请?', '提示', {
-          'confirmButtonText': '确定',
-          'cancelButtonText': '取消',
-          'type': 'warning'
-        }).then(() => {
-          agreeAccommodationApply({
-            id: row.id,
-            isAgree: 0,
-            responsibleLeaderId: this.userId,
-            reason: null
-          }).then(res => {
-            if (res.status) {
-              this.$message.success('操作成功')
-              this.init()
-            }
-          })
+        agreeAccommodationApply({
+          id: row.id,
+          isAgree: 0,
+          responsibleLeaderId: this.userId,
+          reason: null,
+          preBuildingId: this.form.preBuildingId,
+          nowBuildingId: this.form.nowBuildingId
+        }).then(res => {
+          if (res.status) {
+            this.$message.success('操作成功')
+            this.init()
+          }
         })
       } else {
-        this.$confirm('确定拒绝此次申请?', '提示', {
-          'confirmButtonText': '确定',
-          'cancelButtonText': '取消',
-          'type': 'warning'
-        }).then(() => {
-          agreeAccommodationApply({
-            id: row.id,
-            isAgree: 1,
-            responsibleLeaderId: this.userId,
-            reason: null
-          }).then(res => {
-            if (res.status) {
-              this.$message.success('操作成功')
-              this.init()
-            }
-          })
+        agreeAccommodationApply({
+          id: row.id,
+          isAgree: 1,
+          responsibleLeaderId: this.userId,
+          reason: this.form.reason,
+          buildingId: null
+        }).then(res => {
+          if (res.status) {
+            this.$message.success('操作成功')
+            this.init()
+          }
         })
       }
+      this.dialogAgree = false
+      this.dialogDisagree = false
     },
     handlePageChange (data) {
       this.currentPage = data.currentPage

@@ -13,3 +13,7 @@ export const unBatchStudent = (obj) => http.POST('/api/student/unBatch', obj)
 export const getAccommodationApply = (obj) => http.GET('/api/accommodationApplication/list', obj)
 
 export const agreeAccommodationApply = (obj) => http.GET('/api/accommodationApplication/review', obj)
+
+export const addAccommodationApply = (obj) => http.POST('/api/student/accommodationApplication', obj)
+
+export const getAccommodationNotification = (obj) => http.GET('/api/accommodationNotification/list', obj)

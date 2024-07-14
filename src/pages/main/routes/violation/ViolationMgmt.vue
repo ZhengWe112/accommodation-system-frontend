@@ -15,7 +15,7 @@
         <el-form-item label="学生名" prop="studentName">
           <el-input v-model="form.studentName" placeholder="请填写学生名"/>
         </el-form-item>
-        <el-form-item label="学生名" prop="studentNumber">
+        <el-form-item label="学号" prop="studentNumber">
           <el-input v-model="form.studentNumber" placeholder="请填写学号"/>
         </el-form-item>
         <el-form-item label="违规事项" prop="violationItem">
