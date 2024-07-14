@@ -12,3 +12,5 @@ export const processingMaintenanceRecord = (obj) => http.GET('/api/maintenanceAd
 
 // process
 export const processMaintenanceApply = (obj) => http.GET('/api/maintenanceAdministrator/process/', obj)
+
+export const getMaintenanceRecord = (obj) => http.GET('/api/maintenanceRecord/list/', obj)

@@ -9,7 +9,7 @@
       </div>
     </el-card>
     <el-card class="container">
-      用户信息查询页面 可以复用
+      用户信息查询页面
     </el-card>
   </div>
 </template>

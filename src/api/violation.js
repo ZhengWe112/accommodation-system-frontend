@@ -15,6 +15,8 @@ export const delViolationRecord = (id) => http.DELETE('/api/violationRecord/' + 
 // 送审违规记录
 export const submitViolationRecord = (obj) => http.GET('/api/violationRecord/submit', obj)
 
+export const getViolationRecord = (obj) => http.GET('/api/violationRecord/list', obj)
+
 // 发送警告通知
 export const sendWarningMsg = (obj) => http.GET('/api/violationRecord/send', obj)
 

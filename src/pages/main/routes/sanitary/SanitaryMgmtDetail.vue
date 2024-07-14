@@ -13,7 +13,6 @@
     <el-card class="container">
       <div v-if="userType === 3">
         <el-button type="primary" plain @click="add">添加记录</el-button>
-        <el-button type="success" plain @click="importFromExcel">从Excel导入</el-button>
       </div>
       <el-table :data="detail" @cell-dblclick="cellDblClick">
         <el-table-column label="编号" prop="id"></el-table-column>

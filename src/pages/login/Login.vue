@@ -212,9 +212,9 @@ h3{
       </div>
       <div class=overlaytitle>
         <div class="overlaytitle-Signin">
-          <h2 class="overlaytitleH2">Hello,Friend!</h2>
+          <h2 class="overlaytitleH2">高校住宿管理系统</h2>
           <p class="overlaytitleP">
-            欢迎使用高校住宿管理系统
+            欢迎使用高校住宿管理系统 校园智慧宿舍软件
           </p>
         </div>
       </div>

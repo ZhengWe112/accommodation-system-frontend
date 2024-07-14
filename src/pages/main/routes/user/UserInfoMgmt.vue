@@ -9,7 +9,7 @@
       </div>
     </el-card>
     <el-card class="container">
-      用户信息管理页面 在这里增删改用户信息
+      用户信息管理页面
     </el-card>
   </div>
 </template>
